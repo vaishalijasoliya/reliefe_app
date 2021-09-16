@@ -6,15 +6,49 @@ import Strings from '../config/Strings';
 import OutlineButton from '../components/OutlineButton';
 import CustInput from '../components/CustInput';
 import CustButton from '../components/CustButton';
+import ApiServices from '../config/ApiServices';
+import ApiEndPoint from '../config/ApiEndPoint';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const LoginScreen: (props) => Node = (props) => {
 
 
-    const [username, setUsername] = useState('')
-    const [password, setPassword] = useState('')
+    const [username, setUsername] = useState("")
+    const [password, setPassword] = useState("")
 
     useEffect(() => {
     }, [])
+
+    const onLoginPress = async () => {
+        console.log('press...');
+
+        if (!username) {
+            Constants.showDialog.showErrorDialog('Error', 'Please enter valid username.');
+            return;
+        }
+
+        if (!password) {
+            Constants.showDialog.showErrorDialog('Error', 'Please enter valid password.');
+            return;
+        }
+
+        var payload = {
+            "user_name": username,
+            "password": password
+        }
+        Constants.showLoader.showLoader()
+        var data = await ApiServices.PostApiCall(ApiEndPoint.LOGIN, JSON.stringify(payload))
+        if(!!data && data.status) {
+            Constants.USER_DATA = data.userData;
+            Constants.USER_DATA.token = data.token;
+            AsyncStorage.setItem(Constants.USER_TOKEN, data.token);
+            console.log(data.token);
+            Constants.showLoader.hideLoader()
+        } else {
+            Constants.showLoader.hideLoader()
+            Constants.showDialog.showErrorDialog('Error', data.message);
+        }
+    }
 
     return (
         <SafeAreaView style={styles.container}>
@@ -41,7 +75,7 @@ const LoginScreen: (props) => Node = (props) => {
                     onChangeText={setPassword} />
                 <Text style={[styles.loginMsg, { alignSelf: 'flex-start' }]}>{Strings.forgetPass}</Text>
                 <OutlineButton
-                    onPress={() => { }}
+                    onPress={onLoginPress}
                     btnText={'Next'}
                     containerStyle={styles.btnStyle} />
             </View>
