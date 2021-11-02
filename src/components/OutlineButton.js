@@ -18,16 +18,14 @@ export default OutlineButton;
 
 const styles = StyleSheet.create({
     btnText : {
-        fontSize : 25,
-        padding : 12,
+        fontSize : 20,
+        padding : 10,
         alignSelf : 'center',
-        color : Constants.COLOR_GRAY_TEXT,
+        color : Constants.COLOR_WHITE,
         fontFamily : Constants.FONT_REGULAR,
         fontWeight : '400'
     },
     container: {
-        borderRadius : 40,
-        borderWidth : 1,
-        borderColor : Constants.COLOR_GRAY_TEXT
+        backgroundColor : Constants.COLOR_PRIMARY
     }
 });

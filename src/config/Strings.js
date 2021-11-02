@@ -15,5 +15,7 @@ export default ({
     enterOtp: 'Enter OTP',
     otpMsg1: 'Didn\'t receive OTP click here.',
     login: 'Login',
-    forgetPass: 'Forgot Password.?'
+    forgetPass: 'Forgot Password.?',
+    signupMsg: 'New to reliefe?',
+    joinNow: 'Join now',
 })

@@ -16,6 +16,7 @@ export default ({
     COLOR_PRIMARY: '#00589C',
     COLOR_WHITE: '#FFFFFF',
     COLOR_BLACK: '#000000',
+    COLOR_DIVIDER: '#C4C4C4',
     COLOR_GRAY_TEXT: '#707070',
     COLOR_TRANSPARENT: 'rgba(0,0,0,0)',
     emailReg: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
@@ -29,6 +30,6 @@ export default ({
     USER_DATA: {
 		token: ''
 	},
-    FONT_REGULAR : 'HelveticaNeue'
+    FONT_REGULAR : 'Poppins Regular'
 
 })

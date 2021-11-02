@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { StyleSheet, View, SafeAreaView, StatusBar, Platform, Image, Text, TouchableOpacity, ImageBackground } from 'react-native';
+import { StyleSheet, View, SafeAreaView, StatusBar, Platform, Text, TouchableOpacity, ImageBackground } from 'react-native';
 import type { Node } from 'react';
 import Constants from '../config/Constants';
 import Strings from '../config/Strings';
@@ -9,9 +9,11 @@ import CustButton from '../components/CustButton';
 import ApiServices from '../config/ApiServices';
 import ApiEndPoint from '../config/ApiEndPoint';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import Image from 'react-native-scalable-image';
 
 const LoginScreen: (props) => Node = (props) => {
-
+    const insets = useSafeAreaInsets();
 
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
@@ -20,7 +22,6 @@ const LoginScreen: (props) => Node = (props) => {
     }, [])
 
     const onLoginPress = async () => {
-        console.log('press...');
 
         if (!username) {
             Constants.showDialog.showErrorDialog('Error', 'Please enter valid username.');
@@ -42,7 +43,6 @@ const LoginScreen: (props) => Node = (props) => {
             Constants.USER_DATA = data.userData;
             Constants.USER_DATA.token = data.token;
             AsyncStorage.setItem(Constants.USER_TOKEN, data.token);
-            console.log(data.token);
             Constants.showLoader.hideLoader()
         } else {
             Constants.showLoader.hideLoader()
@@ -54,8 +54,14 @@ const LoginScreen: (props) => Node = (props) => {
         <ImageBackground
             source={require('../assets/images/splash_screen.png')}
             resizeMode={'cover'}
-            style={styles.mainView}>
+            style={[styles.mainView, { paddingTop: insets.top, paddingBottom: Math.max(insets.bottom, 16) }]}>
+            <Image
+                width={Constants.windowWidth * 0.50}
+                source={require('../assets/images/logo.png')}
+                resizeMode='contain'
+                style={styles.logoImage} />
             <Text style={styles.joinComm}>{Strings.login}</Text>
+            <View style={styles.dividerView} />
             <CustInput
                 containerStyle={[styles.inputContainer, { marginTop: 40 }]}
                 placeholder={Strings.userName}
@@ -71,18 +77,43 @@ const LoginScreen: (props) => Node = (props) => {
                 secureTextEntry={true}
                 keyboardType={'default'}
                 onChangeText={setPassword} />
-            <Text style={[styles.loginMsg, { alignSelf: 'flex-start' }]}>{Strings.forgetPass}</Text>
+            <Text style={[styles.loginMsg, { alignSelf: 'flex-end' }]}>{Strings.forgetPass}</Text>
             <OutlineButton
                 onPress={onLoginPress}
                 btnText={'Next'}
                 containerStyle={styles.btnStyle} />
-        </ImageBackground>
+            <TouchableOpacity
+                style={[styles.bottomText, { bottom: Math.max(insets.bottom, 16) + 25 }]}
+                onPress={() => { props.navigation.navigate('Login') }}>
+                <Text style={[styles.loginMsg, { marginTop: Constants.windowHeight * 0.06, color: Constants.COLOR_BLACK }]}>
+                    {Strings.signupMsg}
+                    <Text style={[styles.loginMsg, { color: Constants.COLOR_PRIMARY }]}>
+                        {' ' + Strings.joinNow}
+                    </Text>
+                </Text>
+            </TouchableOpacity>
+        </ImageBackground >
     );
 }
 
 export default LoginScreen;
 
 const styles = StyleSheet.create({
+    bottomText: {
+        position: 'absolute',
+        alignSelf: 'center'
+    },
+    dividerView: {
+        width: 90,
+        marginTop: 5,
+        height: 1,
+        alignSelf: 'center',
+        backgroundColor: Constants.COLOR_DIVIDER
+    },
+    logoImage: {
+        alignSelf: 'center',
+        marginTop: Constants.windowHeight * 0.05
+    },
     loginMsg: {
         fontSize: 15,
         marginTop: 15,
@@ -92,11 +123,9 @@ const styles = StyleSheet.create({
         fontFamily: Constants.FONT_REGULAR
     },
     btnStyle: {
-        width: '70%',
+        width: '100%',
         alignSelf: 'center',
-        marginTop: 40,
-        position: 'absolute',
-        bottom: 25
+        marginTop: 30
     },
     inputContainer: {
         marginTop: 25
@@ -104,16 +133,15 @@ const styles = StyleSheet.create({
     joinComm: {
         fontSize: 32,
         alignSelf: 'center',
-        marginTop: 5,
+        marginTop: Constants.windowHeight * 0.03,
         textAlign: 'center',
-        color: Constants.COLOR_GRAY_TEXT,
+        color: Constants.COLOR_BLACK,
         fontWeight: '400',
         fontFamily: Constants.FONT_REGULAR
     },
     mainView: {
         flex: 1,
-        paddingHorizontal: 25,
-        paddingTop: 40
+        paddingHorizontal: 25
     },
     container: {
         flex: 1,
