@@ -1,6 +1,0 @@
-module Pods_Reliefe_ReliefeTests {
-  umbrella header "Pods-Reliefe-ReliefeTests-umbrella.h"
-
-  export *
-  module * { export * }
-}
