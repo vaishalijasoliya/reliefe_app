@@ -13,7 +13,7 @@ const API_BASEURL = is_in_beta
 export default ({
     BASEURL : BASEURL,
     API_BASEURL: API_BASEURL,
-    COLOR_PRIMARY: '#505050',
+    COLOR_PRIMARY: '#00589C',
     COLOR_WHITE: '#FFFFFF',
     COLOR_BLACK: '#000000',
     COLOR_GRAY_TEXT: '#707070',
