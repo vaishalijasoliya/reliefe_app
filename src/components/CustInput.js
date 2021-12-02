@@ -10,6 +10,7 @@ const CustInput: (props) => Node = (props) => {
         <View style={[styles.container, containerStyle]}>
             <TextInput
                 style={styles.textInput}
+                placeholderTextColor={Constants.COLOR_BLACK}
                 underlineColorAndroid="transparent"
                 {...props} />
         </View>
@@ -25,10 +26,11 @@ const styles = StyleSheet.create({
         color: Constants.COLOR_GRAY_TEXT,
         fontFamily: Constants.FONT_REGULAR,
         paddingHorizontal : 10,
-        paddingVertical : 15
+        paddingVertical : 15,
     },
     container: {
         borderWidth: 1,
-        borderColor: Constants.COLOR_GRAY_TEXT
+        backgroundColor: 'white',
+        borderColor: Constants.COLOR_DIVIDER
     }
 });

@@ -84,7 +84,7 @@ const LoginScreen: (props) => Node = (props) => {
                 containerStyle={styles.btnStyle} />
             <TouchableOpacity
                 style={[styles.bottomText, { bottom: Math.max(insets.bottom, 16) + 25 }]}
-                onPress={() => { props.navigation.navigate('Login') }}>
+                onPress={() => { props.navigation.navigate('Signup1') }}>
                 <Text style={[styles.loginMsg, { marginTop: Constants.windowHeight * 0.06, color: Constants.COLOR_BLACK }]}>
                     {Strings.signupMsg}
                     <Text style={[styles.loginMsg, { color: Constants.COLOR_PRIMARY }]}>
@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
         marginTop: 15,
         alignSelf: 'center',
         textAlign: 'center',
-        color: Constants.COLOR_GRAY_TEXT,
+        color: Constants.COLOR_BLACK,
         fontFamily: Constants.FONT_REGULAR
     },
     btnStyle: {

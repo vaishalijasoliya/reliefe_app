@@ -1,5 +1,6 @@
 export default ({
-    loginMsg: 'Already have a account\nLogin here...',
+    loginMsg: 'Already have a account\n',
+    loginMsg1: 'here...',
     joinComm: 'Join Community',
     joinComm1: 'We\'ll help you create a new account in a few easy steps.',
     signUP: 'Sign Up',
@@ -13,7 +14,8 @@ export default ({
     verification: 'Verificatoion',
     otpMsg: 'Enter OTP which is send to your mobile number.',
     enterOtp: 'Enter OTP',
-    otpMsg1: 'Didn\'t receive OTP click here.',
+    otpMsg1: 'Didn\'t receive OTP',
+    otpMsg2: 'click here.',
     login: 'Login',
     forgetPass: 'Forgot Password.?',
     signupMsg: 'New to reliefe?',

@@ -1,7 +1,8 @@
 import React from 'react';
 import { StyleSheet, View, Image, Text, TouchableOpacity } from 'react-native';
-import Dialog, { SlideAnimation, DialogContent } from 'react-native-popup-dialog';
+import Dialog, { SlideAnimation, DialogContent, FadeAnimation } from 'react-native-popup-dialog';
 import Constants from '../config/Constants';
+import OutlineButton from './OutlineButton';
 
 export default class CustDialog extends React.Component {
   constructor(props) {
@@ -69,7 +70,7 @@ export default class CustDialog extends React.Component {
       image: require('../assets/images/errorAlertIcon.png'),
       title: title,
       text: body,
-      actionText: 'Ok',
+      actionText: 'OK',
       onNagativeButton: null,
       onPositiveButton: null,
       nagativeText: null,
@@ -107,23 +108,25 @@ export default class CustDialog extends React.Component {
         visible={visible}
         onTouchOutside={onPressClose}
         dialogAnimation={
-          new SlideAnimation({
-            slideFrom: 'bottom',
+          new FadeAnimation({
+            initialValue: 0,
+            animationDuration: 150,
+            useNativeDriver: true,
           })
         }
-        width={0.85}
-        containerStyle={[{ justifyContent: 'center' }, { ...containerStyle }]}
+        width={1}
+        height={1}
+        containerStyle={containerStyle}
         dialogStyle={styles.dialogStyle}>
         <DialogContent style={[styles.dialogContent, { ...container1 },]}>
           <View>
-
             <View>
-              {!!image && <Image
+              {false && !!image && <Image
                 style={styles.imageView}
                 resizeMode={'contain'}
                 source={image}
               />}
-              <Text style={styles.boldText}>{title}</Text>
+              {false && <Text style={styles.boldText}>{title}</Text>}
               <Text style={styles.inputText}>{text}</Text>
             </View>
             {isTwoButton && (
@@ -147,9 +150,10 @@ export default class CustDialog extends React.Component {
               </View>
             )}
             {!isTwoButton && (
-              <TouchableOpacity style={styles.hostView} onPress={onButtonPress}>
-                <Text style={styles.buttonText}>{actionText}</Text>
-              </TouchableOpacity>
+              <OutlineButton
+                onPress={onButtonPress}
+                btnText={actionText}
+                containerStyle={styles.hostView} />
             )}
           </View>
         </DialogContent>
@@ -195,11 +199,8 @@ const styles = StyleSheet.create({
   },
   hostView: {
     alignSelf: 'center',
-    paddingHorizontal: 60,
-    borderRadius: 5,
-    marginTop: 15,
-    paddingVertical: 5,
-    backgroundColor: Constants.COLOR_PRIMARY,
+    marginTop: 25,
+    width: '80%',
   },
   inputText: {
     fontFamily: Constants.FONT_REGULAR,
@@ -223,11 +224,12 @@ const styles = StyleSheet.create({
   },
   dialogStyle: {
     backgroundColor: Constants.COLOR_TRANSPARENT,
-    borderRadius: 0,
-    maxHeight: Constants.windowHeight * 0.8,
+    borderRadius: 0
   },
   dialogContent: {
     backgroundColor: 'white',
-    borderRadius: 15,
+    flex: 1,
+    justifyContent: 'center',
+    opacity: 0.85
   },
 });

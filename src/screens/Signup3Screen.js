@@ -1,14 +1,15 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { StyleSheet, View, SafeAreaView, StatusBar, Platform, Image, Text, TouchableOpacity, ScrollView } from 'react-native';
+import { StyleSheet, View, SafeAreaView, StatusBar, Platform, Image, Text, TouchableOpacity, ScrollView, ImageBackground } from 'react-native';
 import type { Node } from 'react';
 import Constants from '../config/Constants';
 import Strings from '../config/Strings';
 import OutlineButton from '../components/OutlineButton';
 import CustInput from '../components/CustInput';
 import CustButton from '../components/CustButton';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const Signup3Screen: (props) => Node = (props) => {
-
+    const insets = useSafeAreaInsets();
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
     const [mobileNumber, setMobile] = useState('')
@@ -21,12 +22,13 @@ const Signup3Screen: (props) => Node = (props) => {
     }, [])
 
     return (
-        <SafeAreaView style={styles.container}>
-            <StatusBar backgroundColor={Constants.COLOR_WHITE} barStyle={'dark-content'} />
+        <ImageBackground
+            source={require('../assets/images/splash_screen.png')}
+            resizeMode={'cover'}
+            style={[styles.mainView, { paddingTop: insets.top, paddingBottom: Math.max(insets.bottom, 16) }]}>
             <ScrollView
                 showsVerticalScrollIndicator={false}
-                bounces={false}
-                style={styles.mainView}>
+                bounces={false}>
                 <Text style={styles.joinComm}>{Strings.signUP}</Text>
                 <CustInput
                     containerStyle={styles.inputContainer}
@@ -79,12 +81,12 @@ const Signup3Screen: (props) => Node = (props) => {
                     secureTextEntry={true}
                     keyboardType={'default'}
                     onChangeText={setCnfPass} />
-                <CustButton
+                <OutlineButton
                     onPress={() => props.navigation.navigate('Verify')}
                     btnText={'Next'}
                     containerStyle={styles.btnStyle} />
             </ScrollView>
-        </SafeAreaView>
+        </ImageBackground>
     );
 }
 
@@ -92,19 +94,19 @@ export default Signup3Screen;
 
 const styles = StyleSheet.create({
     btnStyle: {
-        width: '70%',
+        width: '100%',
         alignSelf: 'center',
-        marginTop : 40
+        marginTop: 40
     },
     inputContainer: {
-        marginTop: 25
+        marginTop: 30
     },
     joinComm: {
-        fontSize: 32,
+        fontSize: 30,
         alignSelf: 'center',
-        marginTop: 5,
+        marginTop: 10,
         textAlign: 'center',
-        color: Constants.COLOR_GRAY_TEXT,
+        color: Constants.COLOR_BLACK,
         fontWeight: '400',
         fontFamily: Constants.FONT_REGULAR
     },
